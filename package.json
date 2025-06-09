@@ -1,0 +1,19 @@
+{
+  "name": "zonx-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "cd zonx && npm run dev",
+    "build": "cd zonx && npm run build",
+    "lint": "cd zonx && npm run lint",
+    "preview": "cd zonx && npm run preview",
+    "install": "cd zonx && npm install"
+  },
+  "workspaces": [
+    "zonx"
+  ],
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.13.0"
+  }
+}
