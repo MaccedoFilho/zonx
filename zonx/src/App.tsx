@@ -1,7 +1,10 @@
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
 import avatarImage from './assets/image.png'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   useGSAP(() => {
@@ -35,8 +38,6 @@ function App() {
       delay: 0.8
     })
 
-
-
     gsap.to('.network-node', {
       duration: 3,
       scale: 'random(0.8, 1.2)',
@@ -48,6 +49,165 @@ function App() {
         from: 'random'
       }
     })
+
+    gsap.fromTo('.title-text', 
+      { 
+        opacity: 0, 
+        scale: 0.5,
+        y: -50
+      },
+      { 
+        opacity: 1, 
+        scale: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'elastic.out(1, 0.5)',
+        delay: 0.5
+      }
+    )
+
+
+
+    ScrollTrigger.create({
+      trigger: '.benefits-text-container',
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.fromTo('.benefit-item', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'back.out(1.2)'
+          }
+        );
+
+
+      }
+    });
+
+    ScrollTrigger.create({
+      trigger: '.who-needs-help',
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.fromTo('.section-title', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'back.out(1.2)'
+          }
+        );
+
+        gsap.fromTo('.section-subtitle', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'back.out(1.2)',
+            delay: 0.15
+          }
+        );
+
+        gsap.fromTo('.business-item', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'back.out(1.2)',
+            delay: 0.5
+          }
+        );
+
+
+      }
+    });
+
+    ScrollTrigger.create({
+      trigger: '.help-section',
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.fromTo('.help-title', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'back.out(1.2)'
+          }
+        );
+
+        gsap.fromTo('.help-subtitle', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'back.out(1.2)',
+            delay: 0.15
+          }
+        );
+
+        gsap.fromTo('.situation-card', 
+          { 
+            opacity: 0, 
+            y: 20,
+            scale: 0.95
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'back.out(1.2)',
+            delay: 0.5
+          }
+        );
+
+
+
+
+      }
+    });
   }, [])
 
   return (
@@ -63,8 +223,8 @@ function App() {
               </h1>
               <p className="hero-subtitle">
                 Seu assistente inteligente para WhatsApp. Conversas naturais, respostas instantâneas e tecnologia de ponta.
-              </p>
-            </div>
+        </p>
+      </div>
 
             <div className="neural-network">
               <svg width="400" height="300" viewBox="0 0 400 300" className="network-svg">
@@ -243,8 +403,282 @@ function App() {
           </div>
         </div>
       </section>
+
+      <section className="floating-benefits">
+        <div className="floating-container">
+          <div className="floating-text main-title">
+            <span className="title-text">
+              Por que escolher a <span className="highlight">Zonx?</span>
+            </span>
+            <div className="title-underline"></div>
+          </div>
+
+          <div className="benefits-text-container">
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="benefit-content">
+                <h3>Respostas Instantâneas</h3>
+                <p>Atenda seus clientes em menos de 3 segundos, 24 horas por dia, sem pausas ou demoras.</p>
+              </div>
+            </div>
+
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M9.5 2A7.5 7.5 0 0 0 4 10c0 6 3.5 10 3.5 10s3.5-4 3.5-10a7.5 7.5 0 0 0-5.5-8z" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M15.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M12 15h9l-2 7-7-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="benefit-content">
+                <h3>IA Superinteligente</h3>
+                <p>Nossa inteligência artificial aprende com cada conversa, oferecendo respostas cada vez mais precisas.</p>
+              </div>
+            </div>
+
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="benefit-content">
+                <h3>Economia de até 70%</h3>
+                <p>Reduza drasticamente os custos operacionais mantendo a qualidade premium no atendimento.</p>
+              </div>
+            </div>
+
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 3v18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M7 12l3-3 3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="benefit-content">
+                <h3>+200% de Conversões</h3>
+                <p>Clientes atendidos rapidamente compram mais. Transforme cada conversa em oportunidade de venda.</p>
+              </div>
+            </div>
+
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 21c0-1-1-3-3-3s-3 2-3 3 1 3 3 3 3-2 3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="benefit-content">
+                <h3>Integração Perfeita</h3>
+                <p>Conecta seamlessly com CRM, ERP e todos os sistemas que você já utiliza. Setup em minutos.</p>
+              </div>
+            </div>
+
+            <div className="benefit-item">
+              <div className="benefit-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="benefit-content">
+                <h3>Suporte Dedicado</h3>
+                <p>Equipe especializada disponível 24/7 para garantir que tudo funcione perfeitamente.</p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
+      <section className="who-needs-help">
+        <div className="who-needs-container">
+          <div className="section-header">
+            <h2 className="section-title">
+              Quem precisa da nossa <span className="highlight">ajuda?</span>
+            </h2>
+            <p className="section-subtitle">
+              Transformamos a comunicação de negócios que precisam de velocidade e eficiência
+            </p>
+          </div>
+
+          <div className="horizontal-business-list">
+            <div className="business-item" data-title="E-commerce">
+              <div className="business-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M8 21v-4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </div>
+              <span className="business-name">E-commerce</span>
+              <div className="business-details">
+                <h4>Lojas Online</h4>
+                <p>Responda dúvidas sobre produtos, processe pedidos e dê suporte 24/7 automaticamente</p>
+                <div className="results">
+                  <span className="result-item">+300% vendas</span>
+                  <span className="result-item">0s resposta</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="business-item" data-title="Consultórios">
+              <div className="business-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </div>
+              <span className="business-name">Consultórios</span>
+              <div className="business-details">
+                <h4>Clínicas & Saúde</h4>
+                <p>Agende consultas, confirme horários e esclareça dúvidas médicas automaticamente</p>
+                <div className="results">
+                  <span className="result-item">-80% faltas</span>
+                  <span className="result-item">Agenda automática</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="business-item" data-title="Restaurantes">
+              <div className="business-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" stroke="currentColor" strokeWidth="2"/>
+                  <line x1="6" y1="1" x2="6" y2="4" stroke="currentColor" strokeWidth="2"/>
+                  <line x1="10" y1="1" x2="10" y2="4" stroke="currentColor" strokeWidth="2"/>
+                  <line x1="14" y1="1" x2="14" y2="4" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </div>
+              <span className="business-name">Restaurantes</span>
+              <div className="business-details">
+                <h4>Food & Delivery</h4>
+                <p>Receba pedidos, faça reservas e informe cardápio em tempo real</p>
+                <div className="results">
+                  <span className="result-item">+150% pedidos</span>
+                  <span className="result-item">Zero erro</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="business-item" data-title="Varejo">
+              <div className="business-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" strokeWidth="2"/>
+                  <polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="currentColor" strokeWidth="2"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </div>
+              <span className="business-name">Varejo</span>
+              <div className="business-details">
+                <h4>Varejo & Atacado</h4>
+                <p>Processe grandes volumes de consultas sobre estoque, preços e prazos</p>
+                <div className="results">
+                  <span className="result-item">-90% tempo</span>
+                  <span className="result-item">Volume infinito</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="business-item" data-title="Serviços">
+              <div className="business-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </div>
+              <span className="business-name">Serviços</span>
+              <div className="business-details">
+                <h4>Prestadores de Serviço</h4>
+                <p>Agende, orce e acompanhe trabalhos automaticamente</p>
+                <div className="results">
+                  <span className="result-item">+200% agendamentos</span>
+                  <span className="result-item">Orçamento instantly</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="business-item" data-title="Educação">
+              <div className="business-circle">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </div>
+              <span className="business-name">Educação</span>
+              <div className="business-details">
+                <h4>Escolas & Cursos</h4>
+                <p>Informe sobre matrículas, horários e dê suporte aos alunos 24/7</p>
+                <div className="results">
+                  <span className="result-item">+400% matrículas</span>
+                  <span className="result-item">Suporte 24/7</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="help-section">
+        <div className="help-container">
+          <div className="help-header">
+            <h2 className="help-title">
+              Esses <span className="highlight-zonx">problemas</span> afetam seu <span className="highlight-zonx">negócio?</span>
+            </h2>
+
+          </div>
+
+          <div className="situations-grid">
+            <div className="situation-card">
+              <div className="situation-emoji"></div>
+              <h3>Clientes abandonam o carrinho</h3>
+              <p>Dúvidas sobre frete, pagamento e produtos ficam sem resposta, fazendo você perder vendas todos os dias</p>
+            </div>
+
+            <div className="situation-card">
+              <div className="situation-emoji"></div>
+              <h3>Funciona só no horário comercial</h3>
+              <p>Clientes interessados tentam contato fora do expediente e acabam comprando da concorrência</p>
+            </div>
+
+            <div className="situation-card">
+              <div className="situation-emoji"></div>
+              <h3>Equipe sobrecarregada</h3>
+              <p>Sua equipe gasta tempo demais respondendo as mesmas perguntas básicas repetidamente</p>
+            </div>
+
+            <div className="situation-card">
+              <div className="situation-emoji"></div>
+              <h3>Custos operacionais altos</h3>
+              <p>Contratar e treinar atendentes custa caro, além dos salários e benefícios mensais</p>
+            </div>
+
+            <div className="situation-card">
+              <div className="situation-emoji"></div>
+              <h3>Atendimento não escala</h3>
+              <p>Quanto mais clientes chegam, mais atendentes precisa contratar, aumentando custos exponencialmente</p>
+            </div>
+
+            <div className="situation-card">
+              <div className="situation-emoji"></div>
+              <h3>Baixas conversões</h3>
+              <p>Demora para responder faz clientes desistirem e procurarem outras opções no mercado</p>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
     </div>
   )
 }
-
 export default App
