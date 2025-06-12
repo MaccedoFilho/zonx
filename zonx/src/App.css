@@ -674,8 +674,6 @@ body {
   transform: translateX(8px);
 }
 
-
-
 @keyframes expandUnderline {
   0% { 
     width: 0%; 
@@ -703,8 +701,6 @@ body {
     opacity: 0.8;
   }
 }
-
-
 
 @media (max-width: 1024px) {
   .floating-text.main-title {
@@ -890,7 +886,6 @@ body {
   .situation-card p {
     font-size: 0.95rem;
   }
-
 
 }
 
@@ -1176,7 +1171,6 @@ body {
     font-size: 0.9rem;
   }
 
-
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -1286,5 +1280,84 @@ body {
 
   .situation-card {
     padding: 2rem;
+  }
+}
+
+/* Floating Help CTA - Clean e Minimalista */
+.floating-help-cta {
+  padding: 2rem 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -3rem;
+}
+
+.help-cta-container {
+  max-width: 800px;
+  width: 100%;
+}
+
+.floating-text-content {
+  text-align: center;
+  padding: 2rem 0;
+  transition: transform 0.3s ease;
+}
+
+.floating-text-content:hover {
+  transform: translateY(-3px);
+}
+
+
+
+.cta-text {
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.text-highlight {
+  background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 25%, #3B82C5 50%, #5B9BD5 75%, #7BB3F0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.cta-description {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-description strong {
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .floating-help-cta {
+    padding: 1.5rem 1rem 3rem;
+    margin-top: -2rem;
+  }
+  
+  .floating-text-content {
+    padding: 1rem 0;
+  }
+  
+  .cta-text {
+    font-size: 1.6rem;
+  }
+  
+  .cta-description {
+    font-size: 1.1rem;
   }
 }

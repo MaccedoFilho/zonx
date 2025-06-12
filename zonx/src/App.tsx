@@ -208,6 +208,26 @@ function App() {
 
       }
     });
+
+    ScrollTrigger.create({
+      trigger: '.floating-help-cta',
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.fromTo('.floating-text-content', 
+          { 
+            opacity: 0, 
+            y: 15
+          },
+          { 
+            opacity: 1, 
+            y: 0,
+            duration: 1,
+            ease: 'power1.out'
+          }
+        );
+      }
+    });
   }, [])
 
   return (
@@ -678,6 +698,23 @@ function App() {
 
         </div>
       </section>
+
+      <section className="floating-help-cta">
+        <div className="help-cta-container">
+          <div className="floating-text-content">
+            <h3 className="cta-text">
+              Se sua empresa enfrenta esses <span className="text-highlight">problemas</span>, 
+              temos a <span className="text-highlight">solução perfeita</span>!
+            </h3>
+            <p className="cta-description">
+              Transforme seu atendimento em uma máquina de vendas 24/7 com <strong>resultados em 48 horas</strong> garantidos. 
+              Cada minuto perdido são vendas que não voltam mais!
+            </p>
+          </div>
+        </div>
+      </section>
+
+
     </div>
   )
 }
