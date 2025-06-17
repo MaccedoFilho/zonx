@@ -3,63 +3,117 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
 import avatarImage from './assets/image.png'
-
+  
 gsap.registerPlugin(ScrollTrigger)
+
+gsap.config({
+  nullTargetWarn: false,
+  autoSleep: 60,
+  force3D: true
+})
 
 function App() {
   useGSAP(() => {
+    const isMobile = window.isMobile || window.innerWidth < 768;
+    
+    if (isMobile) {
+      return; // Desativa todas as animações em dispositivos móveis
+    }
+    
     const createFadeInAnimation = (selector: string, delay = 0, stagger = 0, fromDirection: 'bottom' | 'top' | 'left' | 'right' = 'bottom') => {
       const directions = {
-        bottom: { y: 30, x: 0 },
-        top: { y: -30, x: 0 },
-        left: { y: 0, x: -30 },
-        right: { y: 0, x: 30 }
+        bottom: { y: isMobile ? 15 : 30, x: 0 },
+        top: { y: isMobile ? -15 : -30, x: 0 },
+        left: { y: 0, x: isMobile ? -15 : -30 },
+        right: { y: 0, x: isMobile ? 15 : 30 }
       }
       
       const from = directions[fromDirection]
       
       return gsap.fromTo(selector, 
-        { opacity: 0, ...from, scale: 0.95 },
+        { opacity: 0, ...from, scale: isMobile ? 0.97 : 0.95 },
         { 
           opacity: 1, 
           y: 0,
           x: 0,
           scale: 1, 
-          duration: 1.2, 
+          duration: isMobile ? 0.8 : 1.2, 
           ease: 'power3.out', 
-          delay,
-          ...(stagger && { stagger })
+          delay: isMobile ? delay * 0.7 : delay,
+          ...(stagger && { stagger: isMobile ? stagger * 0.7 : stagger })
         }
       )
     }
 
     const createTitleAnimation = (selector: string, delay = 0) => {
       return gsap.fromTo(selector,
-        { opacity: 0, y: 40, scale: 0.9 },
+        { opacity: 0, y: isMobile ? 20 : 40, scale: isMobile ? 0.95 : 0.9 },
         { 
           opacity: 1, 
           y: 0, 
           scale: 1, 
-          duration: 1.5, 
+          duration: isMobile ? 1 : 1.5, 
           ease: 'power4.out', 
-          delay 
+          delay: isMobile ? delay * 0.7 : delay 
         }
       )
     }
 
-    gsap.from('.hero-title', { duration: 1.8, opacity: 0, y: 30, ease: 'power4.out', delay: 0.2 })
-    gsap.from('.hero-subtitle', { duration: 1.4, opacity: 0, y: 20, ease: 'power3.out', delay: 0.5 })
-    gsap.from('.phone-mockup', { duration: 1.8, x: 80, opacity: 0, ease: 'power4.out', delay: 0.3 })
-    gsap.from('.neural-network', { duration: 2.5, scale: 0.7, opacity: 0, ease: 'power3.out', delay: 0.7 })
-    
-    gsap.to('.network-node', {
-      duration: 4,
-      scale: 'random(0.9, 1.1)',
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-      stagger: { each: 0.3, from: 'random' }
+    gsap.from('.hero-title', { 
+      duration: isMobile ? 1.2 : 1.8, 
+      opacity: 0, 
+      y: isMobile ? 15 : 30, 
+      ease: 'power4.out', 
+      delay: 0.2,
+      clearProps: 'all'  
     })
+    
+    gsap.from('.hero-subtitle', { 
+      duration: isMobile ? 1 : 1.4, 
+      opacity: 0, 
+      y: isMobile ? 10 : 20, 
+      ease: 'power3.out', 
+      delay: isMobile ? 0.4 : 0.5,
+      clearProps: 'all'
+    })
+    
+    gsap.from('.phone-mockup', { 
+      duration: isMobile ? 1.2 : 1.8, 
+      x: isMobile ? 40 : 80, 
+      opacity: 0, 
+      ease: 'power4.out', 
+      delay: 0.3,
+      clearProps: 'transform'
+    })
+    
+    gsap.from('.neural-network', { 
+      duration: isMobile ? 1.5 : 2.5, 
+      scale: isMobile ? 0.8 : 0.7, 
+      opacity: 0, 
+      ease: 'power3.out', 
+      delay: isMobile ? 0.5 : 0.7,
+      clearProps: 'transform'
+    })
+    
+    if (!isMobile) {
+      gsap.to('.network-node', {
+        duration: 4,
+        scale: 'random(0.9, 1.1)',
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        stagger: { each: 0.3, from: 'random' }
+      })
+    } else {
+      gsap.to('.network-node', {
+        duration: 3,
+        scale: 1.05,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        stagger: 0.1
+      })
+    }
 
     gsap.fromTo('.title-text', 
       { opacity: 0, scale: 0.8, y: -30 },
@@ -68,69 +122,79 @@ function App() {
 
     ScrollTrigger.create({
       trigger: '.benefits-text-container',
-      start: "top 75%",
+      start: "top 80%",
       once: true,
-      onEnter: () => createFadeInAnimation('.benefit-item', 0, 0.12)
+      onEnter: () => createFadeInAnimation('.benefit-item', 0, 0.12), 
+      markers: false,
+      fastScrollEnd: true
     })
 
     ScrollTrigger.create({
       trigger: '.who-needs-help',
-      start: "top 80%",
+      start: "top 85%",
       once: true,
       onEnter: () => {
         createTitleAnimation('.section-title')
         createFadeInAnimation('.section-subtitle', 0.3)
         createFadeInAnimation('.business-item', 0.6, 0.1)
-      }
+      },
+      markers: false,
+      fastScrollEnd: true
     })
 
     ScrollTrigger.create({
       trigger: '.help-section',
-      start: "top 75%",
+      start: "top 85%",
       once: true,
       onEnter: () => {
         createTitleAnimation('.help-title')
         createFadeInAnimation('.help-subtitle', 0.3)
         createFadeInAnimation('.situation-card', 0.6, 0.08)
-      }
+      },
+      markers: false,
+      fastScrollEnd: true
     })
 
     ScrollTrigger.create({
       trigger: '.floating-help-cta',
-      start: "top 75%",
+      start: "top 85%",
       once: true,
       onEnter: () => {
         gsap.fromTo('.cta-text', 
-          { opacity: 0, y: 25, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 1.4, ease: 'power3.out' }
+          { opacity: 0, y: isMobile ? 15 : 25, scale: isMobile ? 0.97 : 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: isMobile ? 1 : 1.4, ease: 'power3.out', clearProps: 'all' }
         )
         
         gsap.fromTo('.cta-description', 
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out', delay: 0.2 }
+          { opacity: 0, y: isMobile ? 10 : 20 },
+          { opacity: 1, y: 0, duration: isMobile ? 0.8 : 1.2, ease: 'power2.out', delay: isMobile ? 0.1 : 0.2, clearProps: 'all' }
         )
         
         gsap.fromTo('.section-divider', 
           { opacity: 0, scaleX: 0, transformOrigin: 'center' },
-          { opacity: 1, scaleX: 1, duration: 1.8, ease: 'power3.out', delay: 0.6 }
+          { opacity: 1, scaleX: 1, duration: isMobile ? 1.2 : 1.8, ease: 'power3.out', delay: isMobile ? 0.3 : 0.6, clearProps: 'opacity,transform' }
         )
-      }
+      },
+      markers: false,
+      fastScrollEnd: true
     })
     
     ScrollTrigger.create({
       trigger: '.contact-section',
-      start: "top 75%",
+      start: "top 85%",
       once: true,
       onEnter: () => {
         createTitleAnimation('.contact-title')
         createFadeInAnimation('.contact-subtitle', 0.3)
         createFadeInAnimation('.contact-card', 0.6, 0.12)
-      }
+      },
+      markers: false,
+      fastScrollEnd: true
     })
 
     ScrollTrigger.create({
       trigger: '.footer',
-      start: "top 85%",
+      start: "top 90%",
       once: true,
       onEnter: () => {
         createFadeInAnimation('.footer-logo', 0, 0, 'left')
@@ -139,7 +203,9 @@ function App() {
         createFadeInAnimation('.footer-social', 0.6, 0)
         createFadeInAnimation('.social-link', 0.8, 0.08)
         createFadeInAnimation('.footer-bottom', 1, 0)
-      }
+      },
+      markers: false,
+      fastScrollEnd: true
     })
   }, [])
 
