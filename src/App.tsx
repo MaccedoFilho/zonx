@@ -16,9 +16,76 @@ function App() {
   useGSAP(() => {
     const isMobile = window.isMobile || window.innerWidth < 768;
     
+    gsap.set([
+      '.floating-benefits',
+      '.floating-container',
+      '.floating-text.main-title',
+      '.title-text',
+      '.title-underline',
+      '.benefits-text-container',
+      '.benefit-item',
+      '.benefit-icon',
+      '.benefit-content',
+      '.benefit-content h3',
+      '.benefit-content p'
+    ], {opacity: 1, visibility: 'visible', y: 0, scale: 1});
+    
+    // Se for mobile, apenas garantir que tudo esteja visível
     if (isMobile) {
-      return; // Desativa todas as animações em dispositivos móveis
+      gsap.set([
+        '.who-needs-help .section-title',
+        '.who-needs-help .section-subtitle',
+        '.who-needs-help .business-item',
+        '.help-section .help-title',
+        '.help-section .help-subtitle',
+        '.help-section .situation-card',
+        '.floating-help-cta .cta-text',
+        '.floating-help-cta .cta-description',
+        '.section-divider',
+        '.contact-section .contact-title',
+        '.contact-section .contact-subtitle',
+        '.contact-section .contact-card',
+        '.footer .footer-logo',
+        '.footer .footer-contact h3',
+        '.footer .footer-contact p',
+        '.footer .footer-social',
+        '.social-link',
+        '.footer-bottom'
+      ], {opacity: 1});
+      
+      gsap.set('.business-details', {
+        position: 'relative',
+        top: 'auto',
+        left: 'auto',
+        transform: 'none',
+        opacity: 1,
+        visibility: 'visible',
+        filter: 'none',
+        pointerEvents: 'auto'
+      });
+      return;
     }
+    
+    gsap.set([
+      '.who-needs-help .section-title',
+      '.who-needs-help .section-subtitle',
+      '.who-needs-help .business-item',
+      '.help-section .help-title',
+      '.help-section .help-subtitle',
+      '.help-section .situation-card',
+      '.floating-help-cta .cta-text',
+      '.floating-help-cta .cta-description',
+      '.section-divider',
+      '.contact-section .contact-title',
+      '.contact-section .contact-subtitle',
+      '.contact-section .contact-card',
+      '.footer .footer-logo',
+      '.footer .footer-contact h3',
+      '.footer .footer-contact p',
+      '.footer .footer-social',
+      '.social-link',
+      '.footer-bottom'
+    ], {opacity: 0});
     
     const createFadeInAnimation = (selector: string, delay = 0, stagger = 0, fromDirection: 'bottom' | 'top' | 'left' | 'right' = 'bottom') => {
       const directions = {
@@ -122,16 +189,42 @@ function App() {
 
     ScrollTrigger.create({
       trigger: '.benefits-text-container',
-      start: "top 80%",
+      start: "top 75%",
       once: true,
-      onEnter: () => createFadeInAnimation('.benefit-item', 0, 0.12), 
+      onEnter: () => {
+        // Garantir que os benefit-items sejam visíveis
+        gsap.set('.benefit-item', { opacity: 1, y: 0, visibility: 'visible' });
+        
+        // Aplicar animação mais suave
+        gsap.fromTo('.benefit-item', 
+          { scale: 0.98 },
+          { 
+            scale: 1, 
+            duration: 0.8, 
+            stagger: 0.12,
+            ease: 'power2.out',
+            clearProps: 'scale' 
+          }
+        );
+        
+        // Garantir que os elementos permaneçam visíveis após a animação
+        setTimeout(() => {
+          document.querySelectorAll('.benefit-item').forEach(el => {
+            if (el instanceof HTMLElement) {
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+              el.style.visibility = 'visible';
+            }
+          });
+        }, 2000);
+      },
       markers: false,
       fastScrollEnd: true
     })
 
     ScrollTrigger.create({
       trigger: '.who-needs-help',
-      start: "top 85%",
+      start: "top 70%",
       once: true,
       onEnter: () => {
         createTitleAnimation('.section-title')
@@ -144,7 +237,7 @@ function App() {
 
     ScrollTrigger.create({
       trigger: '.help-section',
-      start: "top 85%",
+      start: "top 70%",
       once: true,
       onEnter: () => {
         createTitleAnimation('.help-title')
@@ -157,23 +250,34 @@ function App() {
 
     ScrollTrigger.create({
       trigger: '.floating-help-cta',
-      start: "top 85%",
+      start: "top 75%",
       once: true,
       onEnter: () => {
         gsap.fromTo('.cta-text', 
           { opacity: 0, y: isMobile ? 15 : 25, scale: isMobile ? 0.97 : 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: isMobile ? 1 : 1.4, ease: 'power3.out', clearProps: 'all' }
+          { opacity: 1, y: 0, scale: 1, duration: isMobile ? 1 : 1.4, ease: 'power3.out' }
         )
         
         gsap.fromTo('.cta-description', 
           { opacity: 0, y: isMobile ? 10 : 20 },
-          { opacity: 1, y: 0, duration: isMobile ? 0.8 : 1.2, ease: 'power2.out', delay: isMobile ? 0.1 : 0.2, clearProps: 'all' }
+          { opacity: 1, y: 0, duration: isMobile ? 0.8 : 1.2, ease: 'power2.out', delay: isMobile ? 0.1 : 0.2 }
         )
         
         gsap.fromTo('.section-divider', 
           { opacity: 0, scaleX: 0, transformOrigin: 'center' },
-          { opacity: 1, scaleX: 1, duration: isMobile ? 1.2 : 1.8, ease: 'power3.out', delay: isMobile ? 0.3 : 0.6, clearProps: 'opacity,transform' }
+          { opacity: 1, scaleX: 1, duration: isMobile ? 1.2 : 1.8, ease: 'power3.out', delay: isMobile ? 0.3 : 0.6 }
         )
+
+        // Garantir que os elementos permaneçam visíveis após a animação
+        setTimeout(() => {
+          document.querySelectorAll('.cta-text, .cta-description, .section-divider').forEach(el => {
+            if (el instanceof HTMLElement) {
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+              el.style.visibility = 'visible';
+            }
+          });
+        }, 2000);
       },
       markers: false,
       fastScrollEnd: true
@@ -181,7 +285,7 @@ function App() {
     
     ScrollTrigger.create({
       trigger: '.contact-section',
-      start: "top 85%",
+      start: "top 75%",
       once: true,
       onEnter: () => {
         createTitleAnimation('.contact-title')
@@ -194,7 +298,7 @@ function App() {
 
     ScrollTrigger.create({
       trigger: '.footer',
-      start: "top 90%",
+      start: "top 80%",
       once: true,
       onEnter: () => {
         createFadeInAnimation('.footer-logo', 0, 0, 'left')
@@ -708,8 +812,8 @@ function App() {
             <div className="contact-cards">
               <div className="contact-card">
                 <div className="contact-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="currentColor"/>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M20.5023 3.49763C18.2724 1.26763 15.2325 0 11.9962 0C5.43962 0 0.0942497 5.34537 0.0942497 11.9019C0.0942497 13.9976 0.64712 16.0427 1.69274 17.8283L0 24L6.33549 22.3421C8.05461 23.2939 9.99999 23.7967 11.9915 23.7967H11.9962C18.5481 23.7967 24 18.4513 24 11.8949C24 8.66825 22.7322 5.72763 20.5023 3.49763ZM11.9962 21.7861H11.9915C10.2116 21.7861 8.46799 21.3013 6.96474 20.3861L6.60674 20.1746L2.85824 21.1353L3.83474 17.4815L3.60074 17.1094C2.58599 15.5411 2.05287 13.7509 2.05287 11.9019C2.05287 6.45188 6.54599 2.01063 12.0009 2.01063C14.6893 2.01063 17.1984 3.06563 19.0552 4.92238C20.9119 6.77913 22.0462 9.28825 22.0414 11.8949C22.0414 17.3496 17.4462 21.7861 11.9962 21.7861ZM17.4367 14.3949C17.1459 14.2484 15.6895 13.5346 15.4221 13.4391C15.1546 13.3436 14.9579 13.2959 14.7612 13.5867C14.5645 13.8776 14.0031 14.5436 13.8301 14.7403C13.657 14.937 13.484 14.9609 13.1932 14.8143C12.9023 14.6678 11.9419 14.3711 10.8087 13.3626C9.92024 12.5763 9.32599 11.6087 9.15299 11.3179C8.97999 11.027 9.13574 10.8659 9.28674 10.7167C9.42112 10.5817 9.58499 10.3659 9.73599 10.1929C9.88699 10.0198 9.93474 9.89775 10.0303 9.70113C10.1258 9.5045 10.078 9.33151 10.0064 9.18513C9.93474 9.03875 9.34524 7.58238 9.10174 7.00075C8.85824 6.41913 8.61474 6.51462 8.44174 6.51462C8.26874 6.51462 8.07212 6.49088 7.87549 6.49088C7.67887 6.49088 7.36349 6.56251 7.09599 6.85338C6.82849 7.14425 6.06787 7.85806 6.06787 9.31444C6.06787 10.7708 7.11974 12.1795 7.27074 12.3761C7.42174 12.5728 9.31949 15.4967 12.2309 16.7772C12.9262 17.0824 13.4695 17.2718 13.8961 17.4135C14.5979 17.6483 15.2374 17.6149 15.7425 17.5432C16.3051 17.4624 17.4939 16.8332 17.7374 16.1561C17.981 15.4789 17.981 14.8973 17.9095 14.7403C17.8379 14.5834 17.6412 14.5057 17.4367 14.3949Z" fill="currentColor"/>
                   </svg>
                 </div>
                 <h3>WhatsApp</h3>
@@ -721,9 +825,8 @@ function App() {
 
               <div className="contact-card">
                 <div className="contact-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2"/>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M2.88889 5C2.39797 5 2 5.39797 2 5.88889V18.1111C2 18.602 2.39797 19 2.88889 19H21.1111C21.602 19 22 18.602 22 18.1111V5.88889C22 5.39797 21.602 5 21.1111 5H2.88889ZM4.77778 7.66667C4.77778 7.17575 5.17575 6.77778 5.66667 6.77778H18.3333C18.8243 6.77778 19.2222 7.17575 19.2222 7.66667V8.55556L12 12.5556L4.77778 8.55556V7.66667ZM4.77778 10.4444L11.6667 14.2778C11.8661 14.3849 12.1339 14.3849 12.3333 14.2778L19.2222 10.4444V16.3333C19.2222 16.8243 18.8243 17.2222 18.3333 17.2222H5.66667C5.17575 17.2222 4.77778 16.8243 4.77778 16.3333V10.4444Z" fill="currentColor"/>
                   </svg>
                 </div>
                 <h3>Email</h3>
@@ -735,9 +838,8 @@ function App() {
 
               <div className="contact-card">
                 <div className="contact-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                    <polyline points="12,6 12,12 16,14" stroke="currentColor" strokeWidth="2"/>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z" fill="currentColor"/>
                   </svg>
                 </div>
                 <h3>Horário</h3>
