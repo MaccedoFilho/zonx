@@ -831,7 +831,7 @@ function App() {
                 </div>
                 <h3>Email</h3>
                 <p>Suporte técnico</p>
-                <a href="mailto:zonx.tech@gmail.com" className="contact-button">
+                <a href="mailto:contato@zonx.com.br" className="contact-button">
                   Enviar email
                 </a>
               </div>
