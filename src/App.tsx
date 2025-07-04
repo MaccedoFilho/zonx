@@ -571,16 +571,15 @@ function App() {
             <div className="benefit-item">
               <div className="benefit-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M12 21c0-1-1-3-3-3s-3 2-3 3 1 3 3 3 3-2 3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                  <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                  <path d="M9 13s1.5 2 3 2 3-2 3-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div className="benefit-content">
-                <h3>Integração Perfeita</h3>
-                <p>Conecta seamlessly com CRM, ERP e todos os sistemas que você já utiliza. Setup em minutos.</p>
+                <h3>Atendimento Personalizado</h3>
+                <p>Comunicação profissional e contextualizada que mantém o padrão de excelência da sua marca em cada interação.</p>
               </div>
             </div>
 
@@ -818,7 +817,7 @@ function App() {
                 </div>
                 <h3>WhatsApp</h3>
                 <p>Resposta imediata</p>
-                <a href="https://wa.me/5511999999999" className="contact-button">
+                <a href="https://wa.me/5547999776326" className="contact-button">
                   Falar agora
                 </a>
               </div>
