@@ -817,7 +817,7 @@ function App() {
                 </div>
                 <h3>WhatsApp</h3>
                 <p>Resposta imediata</p>
-                <a href="https://wa.me/5547999776326" className="contact-button">
+                <a href="https://wa.me/5547999999999" className="contact-button">
                   Falar agora
                 </a>
               </div>
@@ -861,7 +861,7 @@ function App() {
               </div>
               <h3>Entre em contato</h3>
               <p>contato@zonx.com.br</p>
-              <p>(47) 99977-6326</p>
+              <p>(47) 99999-9999</p>
             </div>
             <div className="footer-social">
               <a href="https://linkedin.com/company/zonx-ai" className="social-link" target="_blank" rel="noopener noreferrer">
